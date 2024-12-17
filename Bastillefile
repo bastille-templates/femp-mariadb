@@ -1,0 +1,24 @@
+# install required famp
+INCLUDE https://github.com/bastille-templates/nginx
+INCLUDE https://github.com/bastille-templates/php
+INCLUDE https://github.com/bastille-templates/mariadb
+
+PKG phpMyAdmin5-php82 php82-mysqli php82-fileinfo php82-session php82-curl
+
+# copy files
+CP usr /
+
+# Apache configuration PHP
+
+CMD printf '<?php phpinfo(); ?>\n\n' > /usr/local/www/nginx/info.php
+
+# Apps configuration PHPMyAdmin
+CMD mysql -u root -e "CREATE DATABASE IF NOT EXISTS phpmyadmin;"
+CMD mysql -u root -e "CREATE USER IF NOT EXISTS pma@'localhost' identified by 'pmapass'"
+CMD mysql -u root -e "GRANT ALL PRIVILEGES on phpmyadmin.* to pma@'localhost'"
+CMD mysql -u root -e "FLUSH PRIVILEGES"
+CMD cd /usr/local/www/phpMyAdmin/sql && mysql < create_tables.sql
+CMD chown -R www:www /usr/local/www/phpMyAdmin
+
+SERVICE php_fpm restart
+SERVICE nginx restart
