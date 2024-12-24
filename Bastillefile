@@ -14,8 +14,8 @@ CMD cp /usr/local/etc/nginx/vhosts/defaults_ssl.conf.sample /usr/local/etc/nginx
 CMD sed -i '' 's%listen = 127.0.0.1:9000%listen = /var/run/php-fpm.sock;%g' /usr/local/etc/php-fpm.d/www.conf
 CMD ln -s /usr/local/www/phpMyAdmin /usr/local/www/nginx/phpmyadmin
 CMD openssl rand -base64 32 | tr -d '\n' > rahasia.txt
-CMD key=$(base64 -d < rahasia.txt)
-CMD sed -i -e "s/\$cfg\['blowfish_secret'\] = '';/\$cfg\['blowfish_secret'\] = \\sodium_hex2bin(\"$key\");/g" /usr/local/www/phpMyAdmin/config.inc.php
+CMD key=$(rahasia.txt)
+CMD sed -i -e "s/\$cfg\['blowfish_secret'\] = '';/\$cfg\['blowfish_secret'\] = \\sodium_hex2bin(\'$key\'');/g" /usr/local/www/phpMyAdmin/config.inc.php
 CMD printf '<?php phpinfo(); ?>\n\n' > /usr/local/www/nginx/info.php
 
 # Apps configuration PHPMyAdmin
