@@ -1,4 +1,5 @@
 # install required famp
+INCLUDE https://github.com/bastille-templates/openssl
 INCLUDE https://github.com/bastille-templates/nginx
 INCLUDE https://github.com/bastille-templates/php
 INCLUDE https://github.com/bastille-templates/mariadb
@@ -7,14 +8,11 @@ PKG phpMyAdmin5-php82 php82-mysqli php82-fileinfo php82-session php82-curl
 
 # copy files
 CP usr /
-CP root/secure_mysql.sh /root/
-CMD sed -i '' 's%ROOT_PASSWORD="password_anda"%ROOT_PASSWORD="rootpass"%g' /root/secure_mysql.sh
-CMD cd /root && chmod +x secure_mysql.sh
-CMD cd /root && sh secure_mysql.sh
-CMD cd /root && rm secure_mysql.sh
 
 # Apache configuration PHP
+CMD cp /usr/local/etc/nginx/vhosts/defaults_ssl.conf.sample /usr/local/etc/nginx/vhosts/defaults_ssl.conf
 CMD sed -i '' 's%listen = 127.0.0.1:9000%listen = /var/run/php-fpm.sock;%g' /usr/local/etc/php-fpm.d/www.conf
+CMD ln -s /usr/local/www/phpMyAdmin /usr/local/www/nginx/phpmyadmin
 CMD printf '<?php phpinfo(); ?>\n\n' > /usr/local/www/nginx/info.php
 
 # Apps configuration PHPMyAdmin
