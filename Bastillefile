@@ -25,3 +25,4 @@ CMD chown -R www:www /usr/local/www/phpMyAdmin
 
 SERVICE php_fpm restart
 SERVICE nginx restart
+SERVICE mysql-server restart
