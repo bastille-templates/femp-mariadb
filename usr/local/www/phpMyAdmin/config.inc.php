@@ -27,7 +27,8 @@ $i++;
 /* Authentication type */
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
-$cfg['Servers'][$i]['host'] = 'localhost';
+#$cfg['Servers'][$i]['host'] = 'localhost';
+$cfg['Servers'][$i]['socket'] = '/var/run/mysql/mysql.sock';
 $cfg['Servers'][$i]['compress'] = true;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
 
