@@ -1,10 +1,12 @@
+ARG php_v=82
+
 # install required famp
 INCLUDE https://github.com/bastille-templates/openssl
 INCLUDE https://github.com/bastille-templates/nginx
 INCLUDE https://github.com/bastille-templates/php
 INCLUDE https://github.com/bastille-templates/mariadb
 
-PKG phpMyAdmin5-php82 php82-mysqli php82-fileinfo php82-session php82-curl
+PKG phpMyAdmin5-php${php_v} php${php_v}-mysqli php${php_v}-fileinfo php${php_v}-session php${php_v}-curl
 
 # copy files
 CP root /
