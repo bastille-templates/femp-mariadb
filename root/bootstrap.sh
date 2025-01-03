@@ -5,5 +5,5 @@ echo 'Verify .....'
 grep "blowfish_secret" /usr/local/www/phpMyAdmin/config.inc.php
 
 # Apache configuration PHP
-printf '<?php phpinfo(); ?>\n\n' > /usr/local/www/nginx/info.php
+printf '<?php phpinfo(); ?>\n\n' > /usr/local/www/info.php
 rm /root/bootstrap.sh
