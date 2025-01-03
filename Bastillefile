@@ -12,13 +12,7 @@ PKG phpMyAdmin5-php${php_v} php${php_v}-mysqli php${php_v}-fileinfo php${php_v}-
 CP root /
 CP usr /
 
-# Apache configuration PHP
-CMD cp /usr/local/etc/nginx/vhosts/defaults_ssl.conf.sample /usr/local/etc/nginx/vhosts/defaults_ssl.conf
-CMD sed -i '' 's%listen = 127.0.0.1:9000%listen = /var/run/php-fpm.sock;%g' /usr/local/etc/php-fpm.d/www.conf
-CMD ln -s /usr/local/www/phpMyAdmin /usr/local/www/nginx/phpmyadmin
 CMD cd /root && sh bootstrap.sh
-CMD printf '<?php phpinfo(); ?>\n\n' > /usr/local/www/nginx/info.php
-CMD rm /root/bootstrap.sh
 
 # Apps configuration PHPMyAdmin
 CMD mysql -u root -e "CREATE DATABASE IF NOT EXISTS phpmyadmin;"
